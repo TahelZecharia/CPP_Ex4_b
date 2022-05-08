@@ -6,7 +6,7 @@ namespace coup{
 
     class Captain : public Player{
         
-        // Player *pFrom;
+        Player* _stoleFrom = NULL;
         
         public:
         
@@ -18,6 +18,9 @@ namespace coup{
 
         // The captain can prevent a theft.
         void block(Player &player);
+
+        // Cancelation of the Theft:
+        void cancelTheft();
 
         // Destructor:
         ~Captain();

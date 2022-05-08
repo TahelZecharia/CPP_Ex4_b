@@ -8,6 +8,8 @@
 
 namespace coup{
 
+    class Game;
+
     class Player{
 
         protected:
@@ -17,6 +19,7 @@ namespace coup{
         std::string _role;
         int _coins;
         std::string _lastAction;
+        int _isActive;
 
         public:
 
@@ -34,12 +37,24 @@ namespace coup{
         
         // Dismissing an opposing player from his position and thus removing him from the game:
         virtual void coup(Player &player);
+
+        // Cancelation of the coup:
+        virtual void cancelCoup();
+
+        // Cancelation of the Theft:
+        virtual void cancelTheft();
         
         // The function returns the role of the player:
-        void role();
+        std::string role();
         
         // The method returns how many coins the player has:
         int coins() const;
+
+        // The method returns if the player is active now:
+        int isActive() const;
+
+        // The method sets if the player is active now:
+        void isActive(int num);
 
         // The function throws an error if it is not the player's turn:
         void turnConfirm();
@@ -49,6 +64,9 @@ namespace coup{
 
         // The function returns the player's name:
         std::string getName();
+
+        // The function returns the player's last action:
+        std::string getLastAction();
 
         // The function adds coins to the player:
         void addCoins(int num);

@@ -9,17 +9,17 @@ namespace coup{
     // Contruuctor:
     Player:: Player(Game &game, string const &name)
             
-            : _game(&game), _name(name), _role(""), _coins(0), _lastAction("") {
+            : _game(&game), _name(name), _role(""), _coins(0), _lastAction(""), _isActive(1) {
 
-        this->_game->addPlayer(name);
+        this->_game->addPlayer(this);
     }
 
     // Contruuctor:
     Player:: Player(Game &game, string const &name, string const &role)
     
-            : _game(&game), _name(name), _role(role), _coins(0), _lastAction("") {
+            : _game(&game), _name(name), _role(role), _coins(0), _lastAction(""), _isActive(1) {
 
-        this->_game->addPlayer(name);
+        this->_game->addPlayer(this);
     }
         
     // Take a coin from the coin stack:
@@ -45,6 +45,11 @@ namespace coup{
     // Dismissing an opposing player from his position and thus removing him from the game:
     void Player :: coup(Player &player){
 
+        if (player.isActive() == 0){
+
+            throw runtime_error("The player is not active");
+        }
+
         this->turnConfirm();
 
         if (this->coins() < SEVEN){
@@ -52,23 +57,47 @@ namespace coup{
             throw runtime_error("There are not enough coins to make a coup (7 coins)");
         }
 
-        this->_game->removePlayer(player._name);
+        player.isActive(0);
 
         this->_coins -= SEVEN;
 
         this->endTurn("coup");
     }
-        
-    // The function returns the role of the player:
-    void Player :: role(){
 
-        cout << this->_role << endl;
+    // Cancelation of the coup:
+    void Player :: cancelCoup(){
+
+    }
+
+    // Cancelation of the Theft:
+    void Player :: cancelTheft(){
+
+    }
+
+    // The function returns the role of the player:
+    string Player :: role(){
+
+        cout << this->_name << " role is: " << this->_role << endl;
+
+        return this->_role;
     }
         
     // The method returns how many coins the player has:
     int Player :: coins() const{
 
         return this->_coins;
+    }
+
+    // The method returns if the player is active now:
+    int Player :: isActive() const{
+
+        return this->_isActive;
+    }
+
+    // The method sets if the player is active now:
+    void Player :: isActive(int num){
+
+        this->_isActive = num;
     }
 
     // The function throws an error if it is not the player's turn:
@@ -93,6 +122,12 @@ namespace coup{
     string Player :: getName(){
 
         return this->_name;
+    }
+
+    // The function returns the player's last action:
+    string Player :: getLastAction(){
+
+        return this->_lastAction;
     }
 
     // The function adds coins to the player:

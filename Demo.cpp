@@ -103,7 +103,7 @@ int main() {
 
 	duke.tax();
 	// no exception, assassin can coup with only 3 coins
-	assassin.coup(duke);
+	assassin.coup(duke); //
 
 	players = game_1.players();
 	/*

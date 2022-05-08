@@ -15,12 +15,7 @@ namespace coup{
     // Can block the act of assassination  
     void Contessa :: block(Player &player){
 
-        // this->turnConfirm();
-
-        // //// to do ///
-
-        // this->endTurn("block");
-
+        player.cancelCoup();
 
     }
     

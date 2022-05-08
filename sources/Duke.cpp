@@ -24,11 +24,14 @@ namespace coup{
     // The Duke can block double pay action. The blocked player returns the two coins to the pot.
     void Duke :: block(Player &player){
 
-        // this->turnConfirm();
+        string lastAct = player.getLastAction();
 
-        // /// to do ////
-        
-        // this->endTurn("block");
+        if ( lastAct != "foreign_aid" ){
+
+            throw runtime_error("The last action is not foreign_aid");
+        }
+
+        player.addCoins(-2);
     }
 
     // Destructor:

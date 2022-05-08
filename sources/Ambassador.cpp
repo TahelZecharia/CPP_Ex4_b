@@ -10,7 +10,7 @@ namespace coup{
             
             Player(game, name, "Ambassador"){
 
-            }
+    }
 
     // The func transfer coin from one player to another player in addition.
     void Ambassador :: transfer(Player &player1, Player &player2){
@@ -18,7 +18,7 @@ namespace coup{
         this->turnConfirm();
 
         player1.addCoins(-1);
-        player1.addCoins(1);
+        player2.addCoins(1);
 
         this->endTurn("transfer");
 
@@ -27,11 +27,7 @@ namespace coup{
     // The ambassador can prevent a theft.
     void Ambassador :: block(Player &player){
 
-        this->turnConfirm();
-
-        /// to do ///
-        this->endTurn("block");
-
+        player.cancelTheft();
     }
     
     // Destructor:
