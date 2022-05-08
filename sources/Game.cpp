@@ -12,6 +12,7 @@ namespace coup{
     Game:: Game(){
 
         this->_turn = 0;
+        this->_start = 0;
     }
         
     // returns the names of the players currently active in the game.
@@ -21,7 +22,7 @@ namespace coup{
         
         for(Player *player : this->_players ){
             
-            if (player->isActive()){
+            if (player->isActive() == 1){
 
                 names.push_back(player->getName());
             }  
@@ -45,8 +46,13 @@ namespace coup{
     // If the game is still active, the method will throw an error.
     string Game:: winner(){
 
-        if (this->players().size() != 1)
-        {
+        if (this->_players.size() < 2){
+            
+            throw runtime_error("The game is not start yet");
+        }
+
+        if (this->players().size() != 1){
+
             throw runtime_error("The game is not over yet");
         }
 
@@ -60,39 +66,23 @@ namespace coup{
     // Add a new player to the game:
     void Game :: addPlayer(Player *player){
 
+        if (this->_start == 1){
+
+            throw runtime_error("The game already started");
+        }
+
         if (this->_players.size() >= SIX){
 
             throw runtime_error("The game contains 6 players");
         }
 
-        vector<string> names = this->players();
-
-        for(string const &existName : names ){
-
-            if (existName == player->getName()){
-
-                throw invalid_argument("The name already exists in the game");
-            }
-
-        }
-
         this->_players.push_back(player);
-    }
-
-    // Remove a player from the game:
-    void Game :: removePlayer(Player *player){
-
-        if (player->isActive() != 1){
-
-            throw runtime_error("The player is not active");
-        }
-
-        player->isActive(0);
-        
     }
 
     // The function advances the turn of the game:
     void Game :: nextTurn(){
+
+        this->_start = 1;
 
         this->_turn += 1;
         this->_turn %= this->_players.size();

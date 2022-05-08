@@ -15,7 +15,7 @@ namespace coup{
     // The func steal 2 coins from another player
     void Captain :: steal(Player &player){
 
-        this->turnConfirm();
+        this->turnConfirm("steal");
 
         int coins = player.coins();
 
@@ -28,15 +28,15 @@ namespace coup{
         }
 
         // if the player have 1 coin:
-        if (coins == 1){
+        else if (coins == 1){
             
             this->addCoins(1);
-            player.addCoins(1);
+            player.addCoins(-1);
             this->endTurn("steal1");
         }
 
         // if the player have no coins:
-        if (coins == 0){
+        else if (coins == 0){
             
             this->endTurn("steal0");
         }
@@ -47,8 +47,17 @@ namespace coup{
     // The captain can prevent a theft.
     void Captain :: block(Player &player){
 
-        player.cancelTheft();
+        if ( player.role() != "Captain" ){
 
+            throw runtime_error("The player can not block a theft");
+        }
+
+        if ( this->_isActive == 0 ){
+
+            throw runtime_error("The player is not active");
+        }
+
+        player.cancelTheft();
     }
 
     // Cancelation of the Theft:

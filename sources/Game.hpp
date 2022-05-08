@@ -13,6 +13,7 @@ namespace coup{
 
         std::vector<Player*> _players;
         int _turn;
+        int _start;
 
         public:
         
@@ -31,9 +32,6 @@ namespace coup{
 
         // Add a new player to the game:
         void addPlayer(Player *player);
-
-        // Remove a player from the game:
-        void removePlayer(Player *player);
 
         // The function advances the turn of the game:
         void nextTurn();

@@ -15,6 +15,11 @@ namespace coup{
     // Can block the act of assassination  
     void Contessa :: block(Player &player){
 
+        if ( this->_isActive == 0 ){
+
+            throw runtime_error("The player is not active");
+        }
+
         player.cancelCoup();
 
     }

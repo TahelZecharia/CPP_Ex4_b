@@ -56,8 +56,11 @@ namespace coup{
         // The method sets if the player is active now:
         void isActive(int num);
 
+        // Remove a player from the game:
+        void removePlayer();
+
         // The function throws an error if it is not the player's turn:
-        void turnConfirm();
+        void turnConfirm(std::string const &action);
 
         // The function updates the game that the player's turn is over:
         void endTurn(std::string action);

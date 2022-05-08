@@ -3,6 +3,7 @@
 using namespace std;
 
 const int SEVEN = 7;
+const int TEN = 10;
 
 namespace coup{
 
@@ -25,7 +26,7 @@ namespace coup{
     // Take a coin from the coin stack:
     void Player :: income(){
 
-        this->turnConfirm();
+        this->turnConfirm("income");
 
         this->_coins++;
 
@@ -35,7 +36,7 @@ namespace coup{
     // Take two coins from the coin stack:
     void Player :: foreign_aid(){
 
-        this->turnConfirm();
+        this->turnConfirm("foreign_aid");
 
         this->_coins+=2;
 
@@ -50,14 +51,14 @@ namespace coup{
             throw runtime_error("The player is not active");
         }
 
-        this->turnConfirm();
+        this->turnConfirm("coup");
 
         if (this->coins() < SEVEN){
 
             throw runtime_error("There are not enough coins to make a coup (7 coins)");
         }
 
-        player.isActive(0);
+        player.removePlayer();
 
         this->_coins -= SEVEN;
 
@@ -72,6 +73,18 @@ namespace coup{
     // Cancelation of the Theft:
     void Player :: cancelTheft(){
 
+    }
+
+    // Remove a player from the game:
+    void Player :: removePlayer(){
+
+        if (this->_isActive != 1){
+
+            throw runtime_error("The player is not active");
+        }
+
+        this->_isActive = 0;
+        
     }
 
     // The function returns the role of the player:
@@ -101,12 +114,29 @@ namespace coup{
     }
 
     // The function throws an error if it is not the player's turn:
-    void Player :: turnConfirm(){
+    void Player :: turnConfirm(string const &action){
+
+        if (this->_game->players().size() < 2){
+
+            throw runtime_error("There are not enough players in the game");
+        }
 
         if (this->_game->turn() != this->_name){
 
             throw runtime_error("It's someone else's turn");
         }
+
+        if (this->_coins >= TEN && action != "coup"){
+
+            throw runtime_error("The player must do a coup, he has 10 coins ");
+        }
+
+        if (this->_isActive == 0){
+
+            throw runtime_error("The player is not active");
+        }
+
+
 
     }
 

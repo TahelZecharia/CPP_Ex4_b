@@ -14,7 +14,7 @@ namespace coup{
     // Can take a tax of three coins from the pot without any player being able to prevent it.
     void Duke :: tax(){
 
-        this->turnConfirm();
+        this->turnConfirm("tax");
 
         this->_coins += 3;
 
@@ -23,6 +23,11 @@ namespace coup{
         
     // The Duke can block double pay action. The blocked player returns the two coins to the pot.
     void Duke :: block(Player &player){
+
+        if ( this->_isActive == 0 ){
+
+            throw runtime_error("The player is not active");
+        }
 
         string lastAct = player.getLastAction();
 
