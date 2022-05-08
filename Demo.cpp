@@ -34,6 +34,8 @@ int main() {
 	Captain captain{game_1, "Reut"};
 	Contessa contessa{game_1, "Gilad"};
 
+	vector<Player*> allPlayers = {&duke, &assassin, &ambassador, &captain, &contessa};
+
 	vector<string> players = game_1.players();
 
 	/*
@@ -133,5 +135,31 @@ int main() {
 	{
 		cout << name << endl;
 	}
+
+	
+
+	for (size_t i = 2; i < allPlayers.size(); i++){
+            
+            allPlayers.at(i)->foreign_aid();
+    }
+
+	for (size_t j = 0; j < 3; j++){
+
+		for (size_t i = 0; i < allPlayers.size(); i++){
+            
+            allPlayers.at(i)->foreign_aid();
+        }
+	}
+	
+	duke.coup(ambassador); // ambassador removed
+	assassin.coup(duke); //duke removed
+	captain.coup(assassin); // assassin removed
+	contessa.coup(captain); // captain removed
+
+	game_1.winner(); // Gilad is the winner!
+
+	
+
+	
 }
 
