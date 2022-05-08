@@ -106,35 +106,25 @@ TEST_CASE("Game"){
         CHECK_NOTHROW(captain4.steal(duke1)); // steal from duke1
         CHECK(duke1.coins() == 6); // cheak the theft
 
+        // ambassador block:
+        CHECK_NOTHROW(ambassador3.block(captain4)); // block captain4
+        CHECK(duke1.coins() == 8); // cheak the theft
 
+        // winner:
+        CHECK_NOTHROW(contessa5.foreign_aid());
+        CHECK_NOTHROW(duke1.coup(assassin2)); // coup assassin2
+        for (size_t i = 2; i < players.size(); i++){
+            
+            CHECK_NOTHROW(players.at(i)->foreign_aid());
+        }
+        CHECK_NOTHROW(duke1.income()); 
+        CHECK_NOTHROW(ambassador3.coup(duke1)); // coup duke1
+        CHECK_NOTHROW(captain4.coup(ambassador3)); // coup ambassador3
+        CHECK_NOTHROW(contessa5.coup(captain4)); // coup captain4
 
-
-
-
-
-
-
-
-        // CHECK(ambassador3.coins() == 0);
-        // CHECK_NOTHROW(ambassador3.income()); 
-        // CHECK(ambassador3.coins() == 1);
-        // CHECK_THROWS(ambassador3.income());
-
-        // CHECK(captain4.coins() == 0);
-        // CHECK_NOTHROW(captain4.foreign_aid()); 
-        // CHECK(captain4.coins() == 2);
-        // CHECK_THROWS(captain4.income());
-
-        // CHECK(contessa5.coins() == 0);
-        // CHECK_NOTHROW(contessa5.foreign_aid()); 
-        // CHECK(contessa5.coins() == 2);
-        // CHECK_THROWS(contessa5.income());
+        CHECK(game.winner() == "player 5"); // contessa5 is the winner!
 
     }
-
-    SUBCASE("Game"){
-    }
-
 
 }
 

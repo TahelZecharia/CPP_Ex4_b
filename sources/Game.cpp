@@ -45,12 +45,16 @@ namespace coup{
     // If the game is still active, the method will throw an error.
     string Game:: winner(){
 
-        if (this->_players.size() != 1){
-
+        if (this->players().size() != 1)
+        {
             throw runtime_error("The game is not over yet");
         }
 
-        return this->_players.at(0)->getName();
+        cout << "**************************" << endl;
+        cout << "  THE WINNER IS " << this->players().at(0) << endl;
+        cout << "**************************" << endl;
+
+        return this->players().at(0);
     }
 
     // Add a new player to the game:

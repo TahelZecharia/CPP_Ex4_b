@@ -56,7 +56,7 @@ namespace coup{
 
         string lastAct = this->_lastAction;
 
-        if ( lastAct != "steal0" || lastAct != "steal1" || lastAct != "steal2" ){
+        if ( lastAct != "steal0" && lastAct != "steal1" && lastAct != "steal2" ){
 
             throw runtime_error("The last action is not steal");
         }
